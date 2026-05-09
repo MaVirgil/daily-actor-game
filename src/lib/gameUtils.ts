@@ -1,7 +1,7 @@
 import type {Actor} from "../types";
 import {dateToDayOfYear} from "./dateUtils.ts";
 
-export const getActorForDay = (actors : Actor[], date: Date) => {
+export const getActorForDate = (actors : Actor[], date: Date) => {
 
     const dayIntoYear = dateToDayOfYear(date);
 
