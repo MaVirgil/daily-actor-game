@@ -5,7 +5,7 @@ import './main.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <div className={'w-lg mx-auto'}>
+      <div className={'w-lg mx-auto font-sans'}>
           <App />
       </div>
   </StrictMode>,
