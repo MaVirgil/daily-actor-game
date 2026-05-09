@@ -1,9 +1,10 @@
 import './App.css'
+import Game from "./Game.tsx";
 
 function App() {
 
   return (
-      <h1></h1>
+      <Game />
   );
 }
 
