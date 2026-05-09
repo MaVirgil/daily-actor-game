@@ -13,9 +13,9 @@ function PointIndicatorDisplay({remainingPoints} : {remainingPoints : number}) {
 
     return (
         <div className={'flex flex-col items-center gap-1'}>
-            <div className={'flex justify-between gap-2'}>
+            <div className={'flex justify-between gap-0.5'}>
                 {pointDisplayData.map((isSpent : boolean, index : number) =>
-                    <div key={index} className={`rounded-full ${isSpent ? 'bg-red-600' : 'bg-blue-600'} w-7 h-3.5`}></div>
+                    <div key={index} className={`rounded-sm ${isSpent ? 'bg-red-600' : 'bg-blue-600'} w-8 h-3.5`}></div>
                 )}
             </div>
             <div>

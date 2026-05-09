@@ -2,6 +2,8 @@ import PointIndicatorDisplay from "./PointIndicatorDisplay.tsx";
 
 function PointSection( {remainingPoints} : {remainingPoints: number}) {
 
+    const today: Date = new Date();
+
 
 
     return (
@@ -11,7 +13,7 @@ function PointSection( {remainingPoints} : {remainingPoints: number}) {
                     <div className={'flex gap-1 text-gray-600'}>
                         <p>Daily</p>
                         <p>•</p>
-                        <p>May 9</p>
+                        <p>{`${today.toLocaleDateString()}`}</p>
                     </div>
                     <h3 className={'text-xl  text-center font-bold'}>Guess the actor</h3>
                 </div>

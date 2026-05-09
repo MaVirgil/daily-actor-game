@@ -3,7 +3,7 @@ import Game from "./Game.tsx";
 function App() {
 
   return (
-      <Game />
+      <Game date={new Date()}/>
   );
 }
 

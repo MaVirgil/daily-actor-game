@@ -1,12 +1,16 @@
 import PointSection from "./components/PointSection.tsx";
 import {useState} from "react";
 import {TOTAL_POINTS} from "./constants/constants.ts";
+import {getActorForDate} from "./lib/gameUtils.ts";
+import {actors} from "./data/actors.ts";
 
-function Game() {
+function Game({date}: {date: Date}) {
 
-    // const todaysActor = getActorForDay(actors, new Date());
+    const actor = getActorForDate(actors, date)
 
     const [currentPoints, setCurrentPoints] = useState(TOTAL_POINTS);
+
+    console.log(`debug: actor is: ${actor.name}`);
 
     const handleGuess = () => {
         setCurrentPoints(prevState => Math.max(prevState - 1, 0));
