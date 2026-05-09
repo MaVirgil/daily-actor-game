@@ -1,10 +1,10 @@
-export interface hintCategory {
+export interface HintCategory {
     l1: string,
     l2: string,
     l3: string
 }
 
-export interface actor {
+export interface Actor {
     id: string,
     name: string,
     gender: string,
@@ -12,8 +12,8 @@ export interface actor {
     birthYear: number,
     careerFact: string,
     hints: {
-        films: hintCategory,
-        character: hintCategory,
-        career: hintCategory,
+        films: HintCategory,
+        character: HintCategory,
+        career: HintCategory,
     }
 }
