@@ -33,7 +33,7 @@ function InputContainer({callback, guessList, actorNames}: {
             e.target.value.length >= 2 ?
                 actorNames.filter(
                     actorName => actorName.toLowerCase().includes(e.target.value.toLowerCase())
-                ).slice(0, MAX_SHOWN_SEARCH_SUGGESTIONS + 1) : []
+                ).slice(0, MAX_SHOWN_SEARCH_SUGGESTIONS) : []
         );
     }
 
