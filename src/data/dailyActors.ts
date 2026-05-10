@@ -1,6 +1,6 @@
 import type {Actor} from "../types";
 
-export const actors: Actor[] = [
+export const dailyActors: Actor[] = [
     {
         id: "actor_001",
         name: "Cate Blanchett",

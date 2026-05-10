@@ -2,13 +2,15 @@ import PointSection from "./components/PointSection.tsx";
 import {useState} from "react";
 import {TOTAL_POINTS, WRONG_GUESS_COST} from "./constants/constants.ts";
 import {getActorForDate} from "./lib/gameUtils.ts";
-import {actors} from "./data/actors.ts";
+import {dailyActors} from "./data/dailyActors.ts";
+import {actorNames} from "./data/actorNames.ts";
 import InitialHint from "./components/InitialHint.tsx";
 import InputContainer from "./components/InputContainer.tsx";
+import type {Actor} from "./types";
 
 function Game({date}: {date: Date}) {
 
-    const actor = getActorForDate(actors, date)
+    const actor: Actor = getActorForDate(dailyActors, date)
 
     const [currentPoints, setCurrentPoints] = useState(TOTAL_POINTS);
 
@@ -33,7 +35,7 @@ function Game({date}: {date: Date}) {
             {(currentPoints === 0) && <p>You've lost!</p>}
             <PointSection remainingPoints={currentPoints}/>
             <InitialHint actor={actor} />
-            <InputContainer callback={handleGuess} guessList={guessList}/>
+            <InputContainer callback={handleGuess} guessList={guessList} actorNames={actorNames}/>
         </div>
     );
 }
