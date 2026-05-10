@@ -54,7 +54,7 @@ export const actors: Actor[] = [
     {
         id: "actor_003",
         name: "Tilda Swinton",
-        gender: "female",
+        gender: "Female",
         nationality: "British",
         birthYear: 1960,
         careerFact: "Has been known to sleep in a glass box as a piece of living art at the Museum of Modern Art.",
