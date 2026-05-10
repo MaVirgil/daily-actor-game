@@ -23,7 +23,7 @@ function InputContainer({callback, guessList}: {callback: (guess: string) => voi
                 </form>
             </div>
             <div className={'flex flex-wrap gap-3 mt-2'}>
-                {guessList.map(guess => <div className={'bg-red-200 text-warning pl-4 pr-4 pt-1 pb-1 text-center rounded-2xl'}>• {guess} <p className={'inline text-warning font-thin '}>-{WRONG_GUESS_COST}</p></div>)}
+                {guessList.map((guess, index) => <div key={index} className={'bg-red-200 text-warning pl-4 pr-4 pt-1 pb-1 text-center rounded-2xl'}>• {guess} <p className={'inline text-warning font-thin '}>-{WRONG_GUESS_COST}</p></div>)}
             </div>
         </div>
     );
