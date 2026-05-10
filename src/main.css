@@ -6,3 +6,9 @@
     --color-warning: oklch(0.6522 0.1864 20.08);
     --color-background: oklch(0.9608 0 20.08);
 }
+
+@layer base {
+    *:focus-visible {
+        outline-color: var(--color-primary);
+    }
+}
