@@ -1,5 +1,5 @@
 import {MAX_SHOWN_SEARCH_SUGGESTIONS, WRONG_GUESS_COST} from "../constants/constants.ts";
-import {type ChangeEvent, useState} from "react";
+import {type ChangeEvent, type MouseEvent, useState} from "react";
 
 function InputContainer({callback, guessList, actorNames}: {
     callback: (guess: string) => void,
@@ -8,6 +8,7 @@ function InputContainer({callback, guessList, actorNames}: {
 }) {
 
     const [value, setValue] = useState('');
+    const [showDropDown, setShowDropDown] = useState(false);
     const [searchItems, setSearchItems] = useState<string[]>([]);
 
     const handleAction = (formData: FormData) => {
@@ -27,21 +28,36 @@ function InputContainer({callback, guessList, actorNames}: {
     }
 
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
-        setValue(e.target.value);
 
-        setSearchItems(
-            e.target.value.length >= 2 ?
-                actorNames.filter(
-                    actorName => actorName.toLowerCase().includes(e.target.value.toLowerCase())
-                ).slice(0, MAX_SHOWN_SEARCH_SUGGESTIONS) : []
-        );
+        const value = e.target.value;
+
+        setValue(value);
+
+        if (value.length >= 2) {
+            updateSearchItems(value);
+
+            setShowDropDown(true);
+        } else {
+            setShowDropDown(false);
+        }
     }
 
-    const handleSearchSuggestionClick = (suggestion: string) => {
+    const handleSearchSuggestionClick = (event: MouseEvent<HTMLParagraphElement, globalThis.MouseEvent>, suggestion: string) => {
+        event.preventDefault();
+
         setValue(suggestion);
 
-        //clear search suggestions
-        setSearchItems([]);
+        updateSearchItems(suggestion);
+
+        setShowDropDown(false);
+    }
+
+    function updateSearchItems(query: string) {
+        setSearchItems(
+            actorNames.filter(
+                actorName => actorName.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, MAX_SHOWN_SEARCH_SUGGESTIONS)
+        );
     }
 
     return (
@@ -55,12 +71,14 @@ function InputContainer({callback, guessList, actorNames}: {
                         required
                         placeholder={'Guess...'}
                         onChange={event => handleSearchInputChange(event)}
+                        onBlur={() => setShowDropDown(false)}
+                        onFocus={() => value.length >= 2 && setShowDropDown(true)}
                         value={value}
                         className={
                             `w-6/7
                             border-2
                             rounded-t-lg
-                            ${searchItems.length <= 0 ? 'rounded-b-lg' : ''}
+                            ${showDropDown ? '' : 'rounded-b-lg'}
                             p-3
                             border-gray-200
                             outline-none
@@ -71,11 +89,11 @@ function InputContainer({callback, guessList, actorNames}: {
                 </div>
             </form>
 
-            {searchItems.length > 0 &&
+            {showDropDown &&
                 <div className={'p-2 border-2 border-t-0  rounded-b-lg w-6/7 border-gray-200'}>
                     {searchItems.map(
                         (item) =>
-                            <p onClick={() => handleSearchSuggestionClick(item)} className={'cursor-pointer hover:font-bold'} key={item}>
+                            <p onMouseDown={(event) => handleSearchSuggestionClick(event, item)} className={'cursor-pointer hover:font-bold'} key={item}>
                                 {item}
                             </p>
                     )}
@@ -83,12 +101,12 @@ function InputContainer({callback, guessList, actorNames}: {
             }
 
             <div className={'flex flex-wrap gap-3 mt-2'}>
-                {guessList.map(
-                        (guess, index) =>
-                            <div key={index} className={'bg-red-200 text-warning pl-4 pr-4 pt-1 pb-1 text-center rounded-2xl'}>
-                                • {guess}<p className={'inline text-warning font-thin '}>-{WRONG_GUESS_COST}</p>
-                            </div>
-                )}
+                {guessList.map((guess, index) => (
+                    <div key={index} className={'bg-red-200 text-warning pl-4 pr-4 pt-1 pb-1 text-center rounded-2xl'}>
+                        • {guess}
+                        <p className={'inline text-warning font-thin '}>-{WRONG_GUESS_COST}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
